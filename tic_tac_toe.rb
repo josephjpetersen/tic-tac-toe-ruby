@@ -115,8 +115,8 @@ class TicTacToe
         update_board
         puts "Congrats #{@p2.name}! You win!"
       else
-        puts "It's a draw!"
         update_board
+        puts "It's a draw!"
       end
     end
 
@@ -149,6 +149,10 @@ class TicTacToe
         @has_winner = true
         @p2_wins = true
       end
+    end
+
+    if @positions.none? { |i| i.is_a?(Integer) }
+      @has_winner = true
     end
   end
 end
