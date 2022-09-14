@@ -53,12 +53,13 @@ class TicTacToe
     draw_board
   end
 
+  
   def play_game
     p1_active = false
     p2_active = false
 
     until @has_winner
-      until @p2_active
+      until p2_active
         puts "#{@p1.name}, enter a number to place an #{@p1.player_symbol}:"
         selection = gets.chomp.to_i
       
@@ -73,18 +74,23 @@ class TicTacToe
           @positions[selection - 1] = @p1.player_symbol
           update_board
           check_winner
-          @p2_active = true
+          p1_active = false
+          p2_active = true
         end
       end
 
-      until @p1_active
+      if @has_winner
+        break
+      end
+
+      until p1_active
         puts "#{@p2.name}, enter a number to place an #{@p2.player_symbol}:"
         selection = gets.chomp.to_i
       
         if (1..9).include?(selection) == false
           update_board
           next
-        elsif @positions[selection - 1] == "X" || @positions[slection - 1] == "O"
+        elsif @positions[selection - 1] == "X" || @positions[selection - 1] == "O"
           update_board
           next
         else 
@@ -92,9 +98,11 @@ class TicTacToe
           @positions[selection - 1] = @p2.player_symbol
           update_board
           check_winner
-          @p1_active = true
+          p2_active = false
+          p1_active = true
         end
       end
+      next
     end
 
     if @has_winner
